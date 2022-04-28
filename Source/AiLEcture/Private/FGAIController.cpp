@@ -24,6 +24,7 @@ void AFGAIController::OnPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 		if (Stimulus.WasSuccessfullySensed())
 		{
 			BlackboardComp->SetValueAsObject("Player", Actor); //This is kinda cringe
+			BlackboardComp->SetValueAsBool("Alert", true);
 			return;
 
 			//Stimulus was found
