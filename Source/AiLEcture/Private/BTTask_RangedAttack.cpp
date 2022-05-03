@@ -22,6 +22,8 @@ EBTNodeResult::Type UBTTask_RangedAttack::ExecuteTask(UBehaviorTreeComponent& Ow
 		return EBTNodeResult::Failed;
 	}
 
+	OwnerComp.GetAIOwner()->SetFocus(PlayerRef);
+
 	return EBTNodeResult::InProgress;
 	//return Super::ExecuteTask(OwnerComp, NodeMemory);
 }
@@ -41,6 +43,7 @@ void UBTTask_RangedAttack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* No
 
 		if (AccumulatedShots >= ShotCount)
 		{
+			OwnerComp.GetAIOwner()->ClearFocus(EAIFocusPriority::Gameplay);
 			FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
 		}
 
@@ -55,7 +58,7 @@ void UBTTask_RangedAttack::Fire(AActor* FiringActor)
 
 	FHitResult Result;
 
-	DrawDebugLine(GetWorld(), FiringActor->GetActorLocation(), TargetPoint, FColor::Green, true, 1.0f, 4, 4);
+	DrawDebugLine(GetWorld(), FiringActor->GetActorLocation(), TargetPoint, FColor::Green, true, 0.1f, 1, 4);
 	if (GetWorld()->LineTraceSingleByChannel(Result, FiringActor->GetActorLocation(), TargetPoint, ECC_WorldDynamic))
 	{
 		if (Result.GetActor() == PlayerRef)

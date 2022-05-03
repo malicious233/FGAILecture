@@ -5,6 +5,7 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Perception/AIPerceptionComponent.h"
 #include "GameFramework/Character.h"
+#include "Kismet/GameplayStatics.h"
 
 AFGAIController::AFGAIController()
 {
@@ -23,15 +24,20 @@ void AFGAIController::OnPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 			
 		if (Stimulus.WasSuccessfullySensed())
 		{
-			BlackboardComp->SetValueAsObject("Player", Actor); //This is kinda cringe
+			//BlackboardComp->SetValueAsObject("Player", Actor); //This is kinda cringe
+			BlackboardComp->SetValueAsBool("HasLOS", true);
 			BlackboardComp->SetValueAsBool("Alert", true);
+			BlackboardComp->ClearValue("LastSpottedLocation");
 			return;
 
 			//Stimulus was found
 		}
 
-		BlackboardComp->ClearValue("Player");
 		//Stimulus was lost
+		Blackboard->SetValueAsVector("LastSpottedLocation", PlayerCharacter->GetActorLocation());
+		BlackboardComp->SetValueAsBool("HasLOS", false);
+		
+		
 
 	}
 }
@@ -40,5 +46,6 @@ void AFGAIController::BeginPlay()
 {
 	Super::BeginPlay();
 	BlackboardComp = GetBlackboardComponent();
+	BlackboardComp->SetValueAsObject("Player", UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 }
 

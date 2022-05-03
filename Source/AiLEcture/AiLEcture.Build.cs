@@ -8,6 +8,6 @@ public class AiLEcture : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "GameplayTasks", "Engine", "InputCore", "HeadMountedDisplay" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "GameplayAbilities", "CoreUObject", "GameplayTasks", "Engine", "InputCore", "HeadMountedDisplay" });
 	}
 }
