@@ -25,10 +25,18 @@ class AILECTURE_API AFGAIController : public AAIController
 	UFUNCTION()
 	void OnPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
 
+public:
+	UFUNCTION()
+	float GetPlayerDistance();
+
 protected:
 	virtual void BeginPlay() override;
 
+
 private:
+	UPROPERTY()
+		AActor* PlayerRef = nullptr;
+
 	UPROPERTY(EditDefaultsOnly)
 	UAIPerceptionComponent* PerceptionComp = nullptr;
 

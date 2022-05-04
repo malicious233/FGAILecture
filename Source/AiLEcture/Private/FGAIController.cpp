@@ -42,6 +42,11 @@ void AFGAIController::OnPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 	}
 }
 
+float AFGAIController::GetPlayerDistance()
+{
+	return FVector::Distance(PlayerRef->GetActorLocation(), GetPawn()->GetActorLocation());
+}
+
 void AFGAIController::BeginPlay()
 {
 	Super::BeginPlay();

@@ -2,4 +2,11 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
+
+class FAiLEcture : public IModuleInterface
+{
+	virtual void StartupModule() override;
+	virtual void ShutdownModule() override;
+};
